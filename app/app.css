@@ -1,0 +1,14 @@
+/** app CSS goes here **/
+input.ng-invalid {
+	background-color: #FA787E;
+}
+input.ng-valid.ng-touched {
+	background-color: #78FA89;
+}
+
+.form-row {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-bottom:10px;
+	border-bottom: solid 1px black;
+}
