@@ -18,55 +18,58 @@
          <uib-accordion close-others="true">
              <uib-accordion-group heading="Login Details" is-open="true">
                 <div class="form-row row">
-                 <div class="col-lg-3"><label class="pull-right"><span style="color:red" ng-show="regform.email.$error.required">*</span>Email</label></div>
+                 <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Email</label></div>
                  <div class="col-lg-3">
-                     <input type="email" name="email" class="form-control" ng-model="customer.email" required placeholder="please input your email"/>
+                     <input type="email" name="email" class="form-control" ng-model="customer.email" 
+					        ng-modal-options = "{updateOn:'default blur'}"
+							availableEmail
+					        required placeholder="please input your email"/>
                  </div>
-                 <div class="col-lg-6"> <div style="color:red" ng-show="regform.email.$error.email">Email not right</div></div>
+                 <div class="col-lg-6">
+				    <div style="color:red" ng-show="regform.email.$error.email">Email is not acceptable.</div>
+					<div style="color:red" ng-show="regform.email.$error.availableEmail">email is occupied</div>
+				 </div>
                  </div>
                  
                  <div class="form-row row">
-                 <div class="col-lg-3">Retype Email</div>
-                 <div class="col-lg-6">
-                     <input type="email" name="retypeEmail" ng-model="customer.retypeemail" placeholder="please retype your email" />
-                 </div>
+                 <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Retype Email</label></div>
                  <div class="col-lg-3">
-                     <div style="color:red" ng-show="retypeNotTheSame()">retype email incorrrect</div>
+                     <input type="email" name="retypeEmail" class="form-control" ng-model="customer.retypeemail" required placeholder="Please retype your email" />
+                 </div>
+                 <div class="col-lg-6">
+                     <div style="color:red" ng-show="retypeEmailNotTheSame()">retype email incorrrect</div>
                  </div>
                  </div>
 
-<div class="form-row row">
-                 <div class="col-lg-3">Password</div>
-                 <div class="col-lg-6">
-                     <input type="password" />
-                 </div>
-                 <div class="col-lg-3">
-                     <div style="color:red">password doesn't match pattern required</div>
-                 </div>
-</div>
-<div class="form-row row">
-                 <div class="col-lg-3">Retype Password</div>
-                 <div class="col-lg-6">
-                     <input type="password" />
-                 </div>
-                 <div class="col-lg-3">
-                     <div style="color:red">password doesn't match pattern required</div>
-                 </div>                 
-</div>
-<div class="form-row row">
-                 <div class="col-lg-10">
-                   <input type="button" class="btn btn-default" value="<< Back" />
-                 </div>
-                 <div class="col-lg-2">
-                   <input type="submit" class="btn btn-success" value="Continue >>" />
-                 </div>
-</div>
+				<div class="form-row row">
+					<div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Password</label></div>
+					<div class="col-lg-3">
+						<input type="password" name="password" class="form-control" ng-model="customer.password" required />
+					</div>
+					<div class="col-lg-6">
+					     <div style="color:red" ng-show="false">password doesn't match required pattern</div>
+					</div>
+				</div>
+				
+				<div class="form-row row">
+					 <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Retype Password</label></div>
+					 <div class="col-lg-3">
+						 <input type="password" name="retypePassword" class="form-control" ng-model="customer.retypePassword" required/>
+					 </div>
+					 <div class="col-lg-6">
+						 <div style="color:red" ng-show="retypePwdNotTheSame()">Retype password is not identical to the password</div>
+					 </div>                 
+				</div>
              </uib-accordion-group>
+			 
              <uib-accordion-group heading="Customer Declaration" is-open="false">
                <div class="form-row row">
+			        <div class="col-lg-12">It is a condition of creating and maintaining an account with QTAC that you accept the Customer Declaration. QTAC may,
+					from time to time, amend the Customer Declaration and you will be notificed of changes when they are made.</div>
                     <div class="col-lg-12">
-                       Here is the content of the declaration
+                       {{activeLegalDeclaration.content}}
                     </div>
+					<input type="hidden" value="{{activeLegalDeclaration.version}}" ng-model="customer.declarionVersion" />
                </div>
                <div class="form-row row">
                     <div class="col-lg-12">
@@ -80,51 +83,127 @@
              <uib-accordion-group heading="Personal Details" is-open="false">
                 <div class="form-row row">
                     <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Family Name</label></div>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" />
-                    </div>
                     <div class="col-lg-3">
+                        <input type="text" class="form-control" required ng-model="customer.name.familyName"/>
+                    </div>
+                    <div class="col-lg-6">
                     </div>
                 </div>
                 <div class="form-row row">
-                    <div class="col-lg-3">Given Name</div>
-                    <div class="col-lg-6">
-                        <input type="text" />
-                    </div>
+                    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Given Name</label></div>
                     <div class="col-lg-3">
+                        <input type="text" class="form-control" required ng-model="customer.name.givenName" />
+                    </div>
+                    <div class="col-lg-6">
                     </div>
                 </div>
                 <div class="form-row row">
-                    <div class="col-lg-3">Second Given Name</div>
-                    <div class="col-lg-6">
-                        <input type="text" />
-                    </div>
+                    <div class="col-lg-3"><label class="pull-right">Second Given Name</label></div>
                     <div class="col-lg-3">
+                        <input type="text" class="form-control" ng-model="customer.name.secondGivenName" />
+                    </div>
+                    <div class="col-lg-6">
                     </div>
                 </div>
                 <div class="form-row row">
-                    <div class="col-lg-3">Date of Birth</div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Date of Birth</label></div>
+                    <div class="col-lg-3">
                         <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="today" is-open="status.opened" datepicker-options="dateOptions" min-date="minDate" max-date="maxDate" close-text="close"/>
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" required
+							       ng-model="customer.dateOfBirth" is-open="status.opened" datepicker-options="dateOptions"
+								   min-date="minDate" max-date="maxDate" close-text="close"/>
                             <span class="input-group-btn">
                               <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                             </span>
                         </p>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-6">
                     </div>
                 </div>
              </uib-accordion-group>
-             <uib-accordion-group heading="Addresses" is-open="false">group 2</uib-accordion-group>
-             <uib-accordion-group heading="Contact Details" is-open="false">group 2</uib-accordion-group>
+             <uib-accordion-group heading="Addresses" is-open="true">
+			    <div class="form-row row">
+				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Residential Address Country</label></div>
+					<div class="col-lg-3"><select class="form-control" ng-model="customer.addresses.residential.country">
+					         <option ng-repeat="c in countries">{{c}}</option>
+					 </select></div>
+					<div class="col-lg-6"></div>
+				</div>
+			    <div class="form-row row">
+				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Residential Address</label></div>
+					<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.addresses.residential.line1"/></div>
+					<div class="col-lg-6"></div>
+				</div>
+			    <div class="form-row row">
+				    <div class="col-lg-3"></div>
+					<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.addresses.residential.line2"/></div>
+					<div class="col-lg-6"></div>
+				</div>
+			    <div class="form-row row">
+				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Suburb or Town, State or Territory and Postcode</label></div>
+					<div class="col-lg-3"></div>
+					<div class="col-lg-6"></div>
+				</div>
+			    <div class="form-row row">
+				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Is your postal address the same as your residential address?</label></div>
+					<div class="col-lg-3">
+					   <input type="radio" name="postalSameToResidential" ng-model="customer.addresses.postalSameToResidential" value="true">Yes &nbsp; &nbsp;
+					   <input type="radio" name="postalSameToResidential" ng-model="customer.addresses.postalSameToResidential" value="false">No
+					</div>
+					<div class="col-lg-6"></div>					
+				</div>			
+				<div ng-show="customer.addresses.postalSameToResidential === 'false'">				
+					<div class="form-row row">
+						<div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Postal Address Country</label></div>
+						<div class="col-lg-3"><select class="form-control" ng-model="customer.addresses.postal.country">
+						    <option ng-repeat="c in countries">{{c}}</option>
+						</select></div>
+						<div class="col-lg-6"></div>
+					</div>
+				</div>	
+			 </uib-accordion-group>
+             <uib-accordion-group heading="Contact Details" is-open="false">
+			 		<div class="form-row row">
+						<div class="col-lg-3"><label class="pull-right">Contact Number</label></div>
+						<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.contacts.phone.number"/></div>
+						<div class="col-lg-6"></div>
+					</div>
+			 		<div class="form-row row">
+						<div class="col-lg-3"><label class="pull-right">Mobile Number</label></div>
+						<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.contacts.mobile.number"/></div>
+						<div class="col-lg-6"></div>
+					</div>
+			 </uib-accordion-group>
              <uib-accordion-group heading="Security Questions" is-open="false">
+				<div ng-repeat="qa in customer.questions track by $index">
                 <div class="form-row row">
-                    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Security Question 1</label></div>
-                    <div class="col-lg-6"><select class="form-control"><option id="1"> question1</option><option id="2"> question1</option></select> </div>
+                    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Security Question {{$index + 1}}</label></div>
+                    <div class="col-lg-3">
+					    <select class="form-control" ng-model="qa.questionCode">
+						    <option ng-repeat="q in questions" id="{{q.id}}">{{q.description}}</option>
+						</select>
+                    </div>
+					<div class="col-lg-6">
+                         
+					</div>
                 </div>
+				<div class="form-row row">
+				        <input type="hidden" value="{{index + 1}}" ng-model="qa.sequence" />
+						<div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Security Answer {{$index+1}}</label></div>
+						<div class="col-lg-3"><input type="text" class="form-control" required ng-model="qa.answer" /></div>
+						<div class="col-lg-6"></div>
+				</div>
+				</div
              </uib-accordion-group>
         </uib-accordion>
+			<div class="form-row row">
+					 <div class="col-lg-10">
+					   <input type="button" class="btn btn-default" value="<< Back" />
+					 </div>
+					 <div class="col-lg-2">
+					   <input type="submit" class="btn btn-success" value="Continue >>" />
+					 </div>
+				</div>
       </form>
        
     </div>
