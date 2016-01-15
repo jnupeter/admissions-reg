@@ -21,13 +21,14 @@
                  <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Email</label></div>
                  <div class="col-lg-3">
                      <input type="email" name="email" class="form-control" ng-model="customer.email" 
-					        ng-modal-options = "{updateOn:'default blur'}"
-							availableEmail
+					 	    ng-model-options = "{ updateOn : 'blur', debounce: {'default' : 500, 'blur' :0}}"
+							available-email
 					        required placeholder="please input your email"/>
                  </div>
                  <div class="col-lg-6">
 				    <div style="color:red" ng-show="regform.email.$error.email">Email is not acceptable.</div>
-					<div style="color:red" ng-show="regform.email.$error.availableEmail">email is occupied</div>
+					<div style="color:red" ng-show="regform.email.$error.abc">email is occupied</div>
+					<div style="color:green" ng-show="regform.email.$pending.abc">checking availability....</div>
 				 </div>
                  </div>
                  
@@ -140,8 +141,18 @@
 					<div class="col-lg-6"></div>
 				</div>
 			    <div class="form-row row">
-				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Suburb or Town, State or Territory and Postcode</label></div>
-					<div class="col-lg-3"></div>
+				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Suburb or Town</label></div>
+					<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.addresses.residential.suburb"/></div>
+					<div class="col-lg-6"></div>
+				</div>
+				 <div class="form-row row">
+				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Postcode</label></div>
+					<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.addresses.residential.postcode"/></div>
+					<div class="col-lg-6"></div>
+				</div>
+				 <div class="form-row row">
+				    <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>State</label></div>
+					<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.addresses.residential.state"/></div>
 					<div class="col-lg-6"></div>
 				</div>
 			    <div class="form-row row">
@@ -165,12 +176,12 @@
              <uib-accordion-group heading="Contact Details" is-open="false">
 			 		<div class="form-row row">
 						<div class="col-lg-3"><label class="pull-right">Contact Number</label></div>
-						<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.contacts.phone.number"/></div>
+						<div class="col-lg-3"><input type="tel" class="form-control" ng-model="customer.contacts.phone.number"/></div>
 						<div class="col-lg-6"></div>
 					</div>
 			 		<div class="form-row row">
 						<div class="col-lg-3"><label class="pull-right">Mobile Number</label></div>
-						<div class="col-lg-3"><input type="text" class="form-control" ng-model="customer.contacts.mobile.number"/></div>
+						<div class="col-lg-3"><input type="tel" class="form-control" ng-model="customer.contacts.mobile.number"/></div>
 						<div class="col-lg-6"></div>
 					</div>
 			 </uib-accordion-group>
@@ -180,7 +191,7 @@
                     <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Security Question {{$index + 1}}</label></div>
                     <div class="col-lg-3">
 					    <select class="form-control" ng-model="qa.questionCode">
-						    <option ng-repeat="q in questions" id="{{q.id}}">{{q.description}}</option>
+						    <option ng-repeat="q in questions" id="{{q.code}}">{{q.description}}</option>
 						</select>
                     </div>
 					<div class="col-lg-6">
@@ -188,7 +199,6 @@
 					</div>
                 </div>
 				<div class="form-row row">
-				        <input type="hidden" value="{{index + 1}}" ng-model="qa.sequence" />
 						<div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Security Answer {{$index+1}}</label></div>
 						<div class="col-lg-3"><input type="text" class="form-control" required ng-model="qa.answer" /></div>
 						<div class="col-lg-6"></div>
@@ -197,11 +207,8 @@
              </uib-accordion-group>
         </uib-accordion>
 			<div class="form-row row">
-					 <div class="col-lg-10">
-					   <input type="button" class="btn btn-default" value="<< Back" />
-					 </div>
 					 <div class="col-lg-2">
-					   <input type="submit" class="btn btn-success" value="Continue >>" />
+					   <input type="submit" class="btn btn-success" value="Create Account" />
 					 </div>
 				</div>
       </form>
