@@ -68,9 +68,8 @@
 			        <div class="col-lg-12">It is a condition of creating and maintaining an account with QTAC that you accept the Customer Declaration. QTAC may,
 					from time to time, amend the Customer Declaration and you will be notificed of changes when they are made.</div>
                     <div class="col-lg-12">
-                       {{activeLegalDeclaration.content}}
+					    <div ng-bind-html="activeLegalDeclaration.content"></div>
                     </div>
-					<input type="hidden" value="{{activeLegalDeclaration.version}}" ng-model="customer.declarionVersion" />
                </div>
                <div class="form-row row">
                     <div class="col-lg-12">
@@ -215,6 +214,7 @@
        
     </div>
     <script src="../bower_components/angular/angular.min.js"></script>
+	<script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="app.js"></script>

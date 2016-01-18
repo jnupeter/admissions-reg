@@ -1,6 +1,6 @@
 'use strict';
 
-var myapp = angular.module('myApp', ['ui.bootstrap']);
+var myapp = angular.module('myApp', ['ui.bootstrap', 'ngSanitize']);
 
 myapp.directive('availableEmail', ['$q', '$log','$http', function($q, $log, $http) {
   return {
