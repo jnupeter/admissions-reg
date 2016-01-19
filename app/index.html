@@ -35,7 +35,7 @@
                  <div class="form-row row">
                  <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Retype Email</label></div>
                  <div class="col-lg-3">
-                     <input type="email" name="retypeEmail" class="form-control" ng-model="customer.retypeemail" required placeholder="Please retype your email" />
+                     <input type="email" name="retypeEmail" class="form-control" ng-model="retypeemail" required placeholder="Please retype your email" />
                  </div>
                  <div class="col-lg-6">
                      <div style="color:red" ng-show="retypeEmailNotTheSame()">retype email incorrrect</div>
@@ -55,7 +55,7 @@
 				<div class="form-row row">
 					 <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Retype Password</label></div>
 					 <div class="col-lg-3">
-						 <input type="password" name="retypePassword" class="form-control" ng-model="customer.retypePassword" required/>
+						 <input type="password" name="retypePassword" class="form-control" ng-model="retypePassword" required/>
 					 </div>
 					 <div class="col-lg-6">
 						 <div style="color:red" ng-show="retypePwdNotTheSame()">Retype password is not identical to the password</div>
@@ -190,7 +190,7 @@
                     <div class="col-lg-3"><label class="pull-right"><span style="color:red">*</span>Security Question {{$index + 1}}</label></div>
                     <div class="col-lg-3">
 					    <select class="form-control" ng-model="qa.questionCode">
-						    <option ng-repeat="q in questions" id="{{q.code}}">{{q.description}}</option>
+						    <option ng-repeat="q in questions" value="{{q.code}}">{{q.description}}</option>
 						</select>
                     </div>
 					<div class="col-lg-6">
